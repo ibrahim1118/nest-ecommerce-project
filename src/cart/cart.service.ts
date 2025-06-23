@@ -7,6 +7,7 @@ import { Cart } from './entities/cart.entity';
 import { UserService } from 'src/user/user.service';
 import { ProductService } from 'src/product/product.service';
 import { ProductCart } from './entities/productCart.entity';
+import { UpdateCartQuantityDto } from './dto/update.car.quantity.dto';
 
 @Injectable()
 export class CartService {
@@ -115,6 +116,27 @@ export class CartService {
       console.error('Error in addToCart:', error);
       throw new BadRequestException('Failed to add items to cart');
     }
+  }
+
+
+  async updateQuantityCart(updateCartDto: UpdateCartQuantityDto, userId: string) {
+    const cart = await this.cartRepository.findOne({
+      where: { userId },
+      relations: ['products', 'products.product', 'user']
+    });
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+    const productCart = cart.products.find(pc => pc.product.id === updateCartDto.productId);
+    if (!productCart) {
+      throw new NotFoundException('Product not found in cart');
+    }
+    if (updateCartDto.opertion === 'increment'&& productCart.quantity < productCart.product.quantity) {
+      productCart.quantity++;
+    } else if (updateCartDto.opertion === 'decrement'&& productCart.quantity > 1) {
+      productCart.quantity--;
+    }
+    return await this.productCartRepository.save(productCart);
   }
 
   async findAll() {

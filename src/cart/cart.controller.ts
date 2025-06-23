@@ -4,6 +4,7 @@ import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { AuthGuard } from 'src/user/guards/auth.guard';
 import { Roles } from 'src/user/decorators/role.decorator';
+import { UpdateCartQuantityDto } from './dto/update.car.quantity.dto';
 
 @Controller('cart')
 export class CartController {
@@ -23,6 +24,14 @@ export class CartController {
  
     return this.cartService.updateCart(updateCartDto, req.user.id);
   }
+  
+  @Put('update-quantity-cart')
+  @UseGuards(AuthGuard)
+  @Roles(['user'])
+  async updateQuantityCart(@Body() updateCartDto: UpdateCartQuantityDto, @Req() req: any) {
+    return this.cartService.updateQuantityCart(updateCartDto, req.user.id);
+  }
+
 
   @Get()
   @UseGuards(AuthGuard)
