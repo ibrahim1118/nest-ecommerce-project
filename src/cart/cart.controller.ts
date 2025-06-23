@@ -20,6 +20,7 @@ export class CartController {
   @UseGuards(AuthGuard)
   @Roles(['user'])
   async deleteFromCart(@Body() updateCartDto: UpdateCartDto, @Req() req: any) {
+ 
     return this.cartService.updateCart(updateCartDto, req.user.id);
   }
 
