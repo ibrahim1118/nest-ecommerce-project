@@ -8,6 +8,7 @@ import { UserService } from 'src/user/user.service';
 import { ProductService } from 'src/product/product.service';
 import { ProductCart } from './entities/productCart.entity';
 import { UpdateCartQuantityDto } from './dto/update.car.quantity.dto';
+import { CouponService } from 'src/coupon/coupon.service';
 
 @Injectable()
 export class CartService {
@@ -18,6 +19,7 @@ export class CartService {
     private productCartRepository: Repository<ProductCart>,
     private userService: UserService,
     private productService: ProductService,
+    private couponService: CouponService
   ) {}
 
   async addToCart(createCartDto: CreateCartDto, userId: string) {
@@ -222,5 +224,32 @@ export class CartService {
       throw new BadRequestException('Failed to delete cart');
     }
   }
-}
 
+  async addCoupon(couponId: number, userId: string) {
+    const cart = await this.cartRepository.findOne({
+      where: { userId },
+      relations: ['coupons']
+    });
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+    const coupon = await this.couponService.findOne(couponId);
+    if (!coupon) {
+      throw new NotFoundException('Coupon not found');
+    }
+    
+    if (coupon.expiryDate < new Date()) {
+      throw new BadRequestException('Coupon expired');
+    }
+    console.log(cart.coupons);
+    if (cart.coupons.some(c => c.id === couponId)) {
+      throw new BadRequestException('Coupon already added');
+    }
+    if (cart.totalPriceAfterDiscount < coupon.discount) {
+      throw new BadRequestException('Coupon discount is greater than cart total price after discount');
+    }
+    cart.totalPriceAfterDiscount = cart.totalPriceAfterDiscount - coupon.discount;
+    cart.coupons.push(coupon);
+    return await this.cartRepository.save(cart);
+  }
+}

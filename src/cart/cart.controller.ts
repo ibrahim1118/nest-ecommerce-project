@@ -32,6 +32,12 @@ export class CartController {
     return this.cartService.updateQuantityCart(updateCartDto, req.user.id);
   }
 
+  @Put('add-coupon/:couponId')
+  @UseGuards(AuthGuard)
+  @Roles(['user'])
+  async addCoupon(@Param('couponId', ParseIntPipe) couponId: number, @Req() req: any) {
+    return this.cartService.addCoupon(couponId  , req.user.id);
+  }
 
   @Get()
   @UseGuards(AuthGuard)
