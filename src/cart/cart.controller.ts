@@ -35,7 +35,7 @@ export class CartController {
 
   @Get()
   @UseGuards(AuthGuard)
-  @Roles(['user', 'admin'])
+  @Roles(['admin'])
   async findAll() {
     return this.cartService.findAll();
     // 
@@ -43,9 +43,16 @@ export class CartController {
 
   @Get(':id')
   @UseGuards(AuthGuard)
-  @Roles(['user', 'admin'])
+  @Roles(['admin'])
   async findOne(@Param('id', ParseIntPipe) id: number) {
     return this.cartService.findOne(id);
+  }
+
+  @Get('user-cart')
+  @UseGuards(AuthGuard)
+  @Roles(['user'])
+  async userCart(@Req() req: any) {
+    return this.cartService.userCart(req.user.id);
   }
 
   @Delete(':id')

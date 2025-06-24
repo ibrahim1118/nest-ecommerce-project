@@ -194,6 +194,17 @@ export class CartService {
     return cart;
   }
 
+
+  async userCart(userId: string) {
+    const cart = await this.cartRepository.findOne({
+      where: { userId },
+      relations: ['products', 'products.product', 'user']
+    });
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+    return cart;
+  }
   async remove(id: number) {
     try {
       const result = await this.cartRepository.delete(id);
