@@ -27,6 +27,9 @@ import { Review } from './review/entities/review.entity';
 import { CartModule } from './cart/cart.module';
 import { Cart } from './cart/entities/cart.entity';
 import { ProductCart } from './cart/entities/productCart.entity';
+import { OrderModule } from './order/order.module';
+import { Order } from './order/entities/order.entity';
+import { Tex } from './tex/entities/tex.entity';
 
 @Module({
   imports: [
@@ -43,10 +46,12 @@ import { ProductCart } from './cart/entities/productCart.entity';
         password: configService.get('DB_PASSWORD', '123'),
         database: configService.get('DB_DATABASE', 'Ecommerce_app'),
         synchronize: true,
-        entities: [User, Category,
-           SubCategory, Brand, 
-           Coupon, Supplier, RequestProduct, 
-           Product, Review , Cart, ProductCart],
+        entities: [
+          User, Category, SubCategory, Brand, 
+          Coupon, Supplier, RequestProduct, 
+          Product, Review, Cart, ProductCart,
+          Order, Tex
+        ],
         ssl: false,
       }),
       inject: [ConfigService],
@@ -68,6 +73,7 @@ import { ProductCart } from './cart/entities/productCart.entity';
     ProductModule,
     ReviewModule,
     CartModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

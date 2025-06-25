@@ -3,6 +3,7 @@ import { Product } from "src/product/entities/product.entity";
 import { User } from "src/user/entities/user.entity";
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProductCart } from "./productCart.entity";
+import { Order } from "src/order/entities/order.entity";
 
 @Entity("carts")
 export class Cart {
@@ -14,11 +15,12 @@ export class Cart {
 
     @Column()
     userId: string;
-    @Column()
-    totalprice : number
 
     @Column()
-    totalPriceAfterDiscount : number
+    totalprice: number;
+
+    @Column()
+    totalPriceAfterDiscount: number;
 
     @OneToMany(() => ProductCart, (productCart) => productCart.cart, {
         cascade: true,
@@ -39,6 +41,10 @@ export class Cart {
         }
     })
     coupons: Coupon[];
+
+    @OneToMany(() => Order, (order) => order.cart)
+    orders: Order[];
+
     @CreateDateColumn()
     createdAt: Date;
 

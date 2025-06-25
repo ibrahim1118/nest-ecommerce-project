@@ -3,6 +3,7 @@ import { Exclude } from 'class-transformer';
 import { RequestProduct } from 'src/request-product/entities/request-product.entity';
 import { Review } from 'src/review/entities/review.entity';
 import { Cart } from 'src/cart/entities/cart.entity';
+import { Order } from 'src/order/entities/order.entity';
 
 export enum UserRole {
   USER = 'user',
@@ -33,6 +34,9 @@ export class User {
     default: UserRole.USER
   })
   role: UserRole;
+
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 
   @Column({ default: true })
   isActive: boolean;

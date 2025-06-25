@@ -8,5 +8,6 @@ import { Tex } from './entities/tex.entity';
   imports: [TypeOrmModule.forFeature([Tex])],
   controllers: [TexController],
   providers: [TexService],
+  exports : [TexService]
 })
 export class TexModule {}
