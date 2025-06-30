@@ -8,6 +8,7 @@ import { UserService } from 'src/user/user.service';
 import { ProductService } from 'src/product/product.service';
 import { ProductCart } from './entities/productCart.entity';
 import { UpdateCartQuantityDto } from './dto/update.car.quantity.dto';
+import { UpdateCartClearDto } from './dto/update-cart-clear.dto';
 
 @Injectable()
 export class CartService {
@@ -198,7 +199,7 @@ export class CartService {
   async userCart(userId: string) {
     const cart = await this.cartRepository.findOne({
       where: { userId },
-      relations: ['products']
+      relations: ['products' , 'products.product']
     });
     if (!cart) {
       throw new NotFoundException('Cart not found');
@@ -221,6 +222,31 @@ export class CartService {
       }
       throw new BadRequestException('Failed to delete cart');
     }
+  }
+
+  async clearCart(cartId: number) {
+    const cart = await this.cartRepository.findOne({
+      where: { id: cartId },
+      relations: ['products']
+    });
+    
+    if (!cart) {
+      throw new NotFoundException('Cart not found');
+    }
+
+    // Delete all product-cart relationships
+    if (cart.products) {
+      await Promise.all(cart.products.map(pc => 
+        this.productCartRepository.delete(pc.id)
+      ));
+    }
+
+    // Update cart totals
+    cart.products = [];
+    cart.totalprice = 0;
+    cart.totalPriceAfterDiscount = 0;
+    
+    return await this.cartRepository.save(cart);
   }
 }
 

@@ -30,11 +30,23 @@ export class OrderController {
     return this.orderService.findOne(id);
   }
 
+  @Get('user/:id')
+  @UseGuards(AuthGuard)
+  findAllByUserId(@Param('id') id: string) {
+    return this.orderService.findAllByUserId(id);
+  }
+
   @Patch(':id')
   @UseGuards(AuthGuard)
   @Roles([UserRole.ADMIN])
   update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     return this.orderService.update(id, updateOrderDto);
+  }
+
+  @Get('my-orders')
+  @UseGuards(AuthGuard)
+  findMyOrders(@Req() req: any) {
+    return this.orderService.findAllByUserId(req.user.id);
   }
 
   @Delete(':id')
