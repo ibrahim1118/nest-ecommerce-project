@@ -30,6 +30,7 @@ import { ProductCart } from './cart/entities/productCart.entity';
 import { OrderModule } from './order/order.module';
 import { Order } from './order/entities/order.entity';
 import { Tex } from './tex/entities/tex.entity';
+import { UploadFileModule } from './upload-file/upload-file.module';
 
 @Module({
   imports: [
@@ -74,6 +75,7 @@ import { Tex } from './tex/entities/tex.entity';
     ReviewModule,
     CartModule,
     OrderModule,
+    UploadFileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
