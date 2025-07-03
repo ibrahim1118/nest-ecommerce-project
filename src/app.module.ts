@@ -31,12 +31,27 @@ import { OrderModule } from './order/order.module';
 import { Order } from './order/entities/order.entity';
 import { Tex } from './tex/entities/tex.entity';
 import { UploadFileModule } from './upload-file/upload-file.module';
+import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
+import * as path from 'path';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    I18nModule.forRoot({
+      fallbackLanguage: 'en',
+      loaderOptions: {
+        path: path.join(process.cwd(), 'src', 'i18n'),
+        watch: true,
+      },
+      resolvers: [
+        { use: QueryResolver, options: ['lang'] },
+        AcceptLanguageResolver,
+        new HeaderResolver(['x-lang']),
+      ],
+    }),
+    
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => ({
@@ -79,5 +94,6 @@ import { UploadFileModule } from './upload-file/upload-file.module';
   ],
   controllers: [AppController],
   providers: [AppService],
+
 })
 export class AppModule {}
