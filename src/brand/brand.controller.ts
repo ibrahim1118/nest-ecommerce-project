@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpStatus, HttpCode
 import { BrandService } from './brand.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { UpdateBrandDto } from './dto/update-brand.dto';
-import { AuthGuard } from 'src/user/guards/auth.guard';
-import { Roles } from 'src/user/decorators/role.decorator';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { Roles } from '../user/decorators/role.decorator';
 
 @Controller('brand')
 export class BrandController {

@@ -1,7 +1,7 @@
-import { Brand } from "src/brand/entities/brand.entity";
-import { ProductCart } from "src/cart/entities/productCart.entity";
-import { Review } from "src/review/entities/review.entity";
-import { SubCategory } from "src/sub-category/entities/sub-category.entity";
+import { Brand } from "../../brand/entities/brand.entity";
+import { ProductCart } from "../../cart/entities/productCart.entity";
+import { Review } from "../../review/entities/review.entity";
+import { SubCategory } from "../../sub-category/entities/sub-category.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("products")

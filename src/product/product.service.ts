@@ -4,8 +4,8 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Product } from './entities/product.entity';
 import { Repository } from 'typeorm';
-import { SubCategoryService } from 'src/sub-category/sub-category.service';
-import { BrandService } from 'src/brand/brand.service';
+import { SubCategoryService } from '../sub-category/sub-category.service';
+import { BrandService } from '../brand/brand.service';
 
 @Injectable()
 export class ProductService {

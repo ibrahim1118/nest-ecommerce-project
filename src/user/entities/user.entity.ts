@@ -1,9 +1,9 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { RequestProduct } from 'src/request-product/entities/request-product.entity';
-import { Review } from 'src/review/entities/review.entity';
-import { Cart } from 'src/cart/entities/cart.entity';
-import { Order } from 'src/order/entities/order.entity';
+import { RequestProduct } from '../../request-product/entities/request-product.entity';
+import { Review } from '../../review/entities/review.entity';
+import { Cart } from '../../cart/entities/cart.entity';
+import { Order } from '../../order/entities/order.entity';
 
 export enum UserRole {
   USER = 'user',

@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@n
 import { CouponService } from './coupon.service';
 import { CreateCouponDto } from './dto/create-coupon.dto';
 import { UpdateCouponDto } from './dto/update-coupon.dto';
-import { AuthGuard } from 'src/user/guards/auth.guard';
-import { Roles } from 'src/user/decorators/role.decorator';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { Roles } from '../user/decorators/role.decorator';
 
 @Controller('coupon')
 @UseGuards(AuthGuard)

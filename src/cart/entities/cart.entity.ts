@@ -1,9 +1,9 @@
-import { Coupon } from "src/coupon/entities/coupon.entity";
-import { Product } from "src/product/entities/product.entity";
-import { User } from "src/user/entities/user.entity";
+import { Coupon } from "../../coupon/entities/coupon.entity";
+import { Product } from "../../product/entities/product.entity";
+import { User } from "../../user/entities/user.entity";
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ProductCart } from "./productCart.entity";
-import { Order } from "src/order/entities/order.entity";
+import { Order } from "../../order/entities/order.entity";
 
 @Entity("carts")
 export class Cart {

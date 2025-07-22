@@ -4,7 +4,7 @@ import { UpdateRequestProductDto } from './dto/update-request-product.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { RequestProduct } from './entities/request-product.entity';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 
 @Injectable()
 export class RequestProductService {

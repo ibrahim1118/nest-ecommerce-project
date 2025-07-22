@@ -1,6 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { Product } from "src/product/entities/product.entity";
-import { User } from "src/user/entities/user.entity";
+import { Product } from "../../product/entities/product.entity";
+import { User } from "../../user/entities/user.entity";
 import { IsNumber, IsOptional, IsString, Max, Min } from "class-validator";
 
 @Entity()

@@ -1,17 +1,16 @@
-import { 
-  Entity, 
-  PrimaryGeneratedColumn, 
-  Column, 
-  CreateDateColumn, 
-  UpdateDateColumn,
-  ManyToOne,
-  OneToMany,
-  JoinColumn
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn,
+    JoinColumn
 } from 'typeorm';
 import { User } from '../../user/entities/user.entity';
 import { OrderStatus } from '../enums/order-status.enum';
 import { PaymentMethod } from '../enums/payment.method.enum';
-import { Cart } from 'src/cart/entities/cart.entity';
+import { Cart } from '../../cart/entities/cart.entity';
 
 @Entity()
 export class Order {

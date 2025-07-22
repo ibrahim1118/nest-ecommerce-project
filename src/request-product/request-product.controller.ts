@@ -16,8 +16,8 @@ import {
 import { RequestProductService } from './request-product.service';
 import { CreateRequestProductDto } from './dto/create-request-product.dto';
 import { UpdateRequestProductDto } from './dto/update-request-product.dto';
-import { AuthGuard } from 'src/user/guards/auth.guard';
-import { Roles } from 'src/user/decorators/role.decorator';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { Roles } from '../user/decorators/role.decorator';
 
 @Controller('request-product')
 @UseGuards(AuthGuard)

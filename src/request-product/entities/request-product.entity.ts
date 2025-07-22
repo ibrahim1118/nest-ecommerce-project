@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsNumber, IsString, Min } from "class-validator";
-import { User } from "src/user/entities/user.entity";
+import { User } from "../../user/entities/user.entity";
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity("request_products")

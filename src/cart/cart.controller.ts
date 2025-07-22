@@ -2,8 +2,8 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query, Re
 import { CartService } from './cart.service';
 import { CreateCartDto } from './dto/create-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
-import { AuthGuard } from 'src/user/guards/auth.guard';
-import { Roles } from 'src/user/decorators/role.decorator';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { Roles } from '../user/decorators/role.decorator';
 import { UpdateCartQuantityDto } from './dto/update.car.quantity.dto';
 
 @Controller('cart')

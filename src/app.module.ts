@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AppController } from './app.controller';
@@ -33,9 +33,15 @@ import { Tex } from './tex/entities/tex.entity';
 import { UploadFileModule } from './upload-file/upload-file.module';
 import { AcceptLanguageResolver, HeaderResolver, I18nModule, QueryResolver } from 'nestjs-i18n';
 import * as path from 'path';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
-  imports: [
+  imports: [ThrottlerModule.forRoot([
+    {
+      ttl: 60000,
+      limit: 10,
+    },
+  ]),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -96,4 +102,8 @@ import * as path from 'path';
   providers: [AppService],
 
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    //consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
